@@ -1,0 +1,24 @@
+{
+  "name": "express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/catursetyo/express_product_api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/catursetyo/express_product_api/issues"
+  },
+  "homepage": "https://github.com/catursetyo/express_product_api#readme",
+  "dependencies": {
+    "express": "^5.3.0"
+  }
+}
