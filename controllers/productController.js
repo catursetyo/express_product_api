@@ -14,4 +14,13 @@ const getProductById = (req, res) => {
   res.status(200).json(product);
 };
 
-module.exports = { getAllProducts, getProductById };
+const createProduct = (req, res) => {
+  const { name, price } = req.body;
+  const id = products.length ? Math.max(...products.map((p) => p.id)) + 1 : 1;
+  const product = { id, name, price };
+
+  products.push(product);
+  res.status(201).json(product);
+};
+
+module.exports = { getAllProducts, getProductById, createProduct };
