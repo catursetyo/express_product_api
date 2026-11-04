@@ -168,3 +168,8 @@ docker exec express_product_db psql -U postgres -d product_api \
 
 ## Test results
 
+![200OK](assets/200OK.png)
+
+![404](assets/404.png)
+
+![404lagi](assets/404lagi.png)
