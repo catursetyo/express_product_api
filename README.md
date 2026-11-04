@@ -54,7 +54,8 @@ The server runs at http://localhost:3001 (override with the `PORT` environment v
 ```
 app.js                            entry point, mounts routes and listens
 routes/productRoutes.js           endpoint definitions
-controllers/productController.js  validation and Prisma queries
+middlewares/productMiddleware.js  request validation
+controllers/productController.js  Prisma queries
 prisma/schema.prisma              database model
 prisma/migrations/                migration history
 prisma/seed.js                    initial data (Buku, Pulpen)

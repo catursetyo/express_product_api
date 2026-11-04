@@ -6,13 +6,18 @@ const {
   updateProduct,
   deleteProduct,
 } = require('../controllers/productController');
+const {
+  validateIdParam,
+  validateIdBody,
+  validateProduct,
+} = require('../middlewares/productMiddleware');
 
 const router = express.Router();
 
 router.get('/', getAllProducts);
-router.get('/:id', getProductById);
-router.post('/', createProduct);
-router.put('/', updateProduct);
-router.delete('/:id', deleteProduct);
+router.get('/:id', validateIdParam, getProductById);
+router.post('/', validateProduct, createProduct);
+router.put('/', validateIdBody, validateProduct, updateProduct);
+router.delete('/:id', validateIdParam, deleteProduct);
 
 module.exports = router;
