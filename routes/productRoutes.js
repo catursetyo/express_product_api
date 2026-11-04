@@ -1,11 +1,9 @@
 const express = require('express');
-const {
-  getAllProducts,
-  getProductById,
-  createProduct,
-  updateProduct,
-  deleteProduct,
-} = require('../controllers/productController');
+const getAllProducts = require('../controllers/getAllProducts');
+const getProductById = require('../controllers/getProductById');
+const createProduct = require('../controllers/createProduct');
+const updateProduct = require('../controllers/updateProduct');
+const deleteProduct = require('../controllers/deleteProduct');
 const {
   validateIdParam,
   validateIdBody,
