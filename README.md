@@ -120,6 +120,43 @@ curl -i -X PUT http://localhost:3001/products \
 curl -i -X DELETE http://localhost:3001/products/2
 ```
 
+## Testing with Postman
+
+The ready-to-import collection is at
+`postman/Product-API.postman_collection.json`.
+
+1. Start the database and the server:
+
+   ```sh
+   npm run db:up
+   npm start
+   ```
+
+2. In Postman, click **Import**, select the collection file, and open it.
+3. The collection uses the variable `baseUrl` with value
+   `http://localhost:3001`. Change it in the collection variables if your server
+   runs on another port.
+4. Open the collection, click **Run**, and use the Collection Runner.
+   Run the requests in order: `03 - POST create product` saves the new product
+   id into the `productId` variable that the following requests use.
+5. Expected result: 14 requests, 30 assertions, 0 failures.
+
+The `Success flow` folder covers GET, POST, PUT, and DELETE. The
+`Validation errors` folder covers missing name, invalid price, invalid id, and
+not-found cases.
+
+To reset the database to the seed data before running the collection:
+
+```sh
+npx prisma migrate reset --force
+```
+
+You can also run the collection from the terminal:
+
+```sh
+npx newman run postman/Product-API.postman_collection.json
+```
+
 ## Database
 
 Check the table before and after a request:
@@ -131,15 +168,3 @@ docker exec express_product_db psql -U postgres -d product_api \
 
 ## Test results
 
-| Request                                   | Status | Response                                      |
-| ----------------------------------------- | ------ | --------------------------------------------- |
-| `GET /products`                           | 200    | `[{"id":1,"name":"Buku","price":15000},{"id":2,"name":"Pulpen","price":5000}]` |
-| `GET /products/1`                         | 200    | `{"id":1,"name":"Buku","price":15000}`        |
-| `GET /products/999`                       | 404    | `{"message":"produk tidak ditemukan"}`        |
-| `POST /products` valid                    | 201    | `{"id":3,"name":"Pensil","price":3000}`       |
-| `POST /products` without name             | 400    | `{"message":"name wajib diisi"}`              |
-| `POST /products` with string price        | 400    | `{"message":"price wajib berupa bilangan bulat minimal 0"}` |
-| `PUT /products` valid                     | 200    | `{"id":3,"name":"Pensil 2B","price":4000}`    |
-| `PUT /products` without id                | 400    | `{"message":"id tidak valid"}`                |
-| `DELETE /products/3`                      | 200    | `{"message":"produk berhasil dihapus"}`       |
-| `DELETE /products/999`                    | 404    | `{"message":"produk tidak ditemukan"}`        |
