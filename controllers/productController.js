@@ -1,11 +1,16 @@
-const products = require('../data/products');
+const { PrismaClient } = require('@prisma/client');
 
-const getAllProducts = (req, res) => {
+const prisma = new PrismaClient();
+
+const getAllProducts = async (req, res) => {
+  const products = await prisma.product.findMany({ orderBy: { id: 'asc' } });
   res.status(200).json(products);
 };
 
-const getProductById = (req, res) => {
-  const product = products.find((p) => p.id === Number(req.params.id));
+const getProductById = async (req, res) => {
+  const product = await prisma.product.findUnique({
+    where: { id: Number(req.params.id) },
+  });
 
   if (!product) {
     return res.status(404).json({ message: 'produk tidak ditemukan' });
@@ -14,12 +19,11 @@ const getProductById = (req, res) => {
   res.status(200).json(product);
 };
 
-const createProduct = (req, res) => {
-  const { name, price } = req.body;
-  const id = products.length ? Math.max(...products.map((p) => p.id)) + 1 : 1;
-  const product = { id, name, price };
+const createProduct = async (req, res) => {
+  const product = await prisma.product.create({
+    data: { name: req.body.name, price: req.body.price },
+  });
 
-  products.push(product);
   res.status(201).json(product);
 };
 
