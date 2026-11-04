@@ -2,7 +2,7 @@ const express = require('express');
 const productRoutes = require('./routes/productRoutes');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3001;
 
 app.use(express.json());
 app.use('/products', productRoutes);
